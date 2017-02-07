@@ -1,19 +1,20 @@
 import React from 'react'
 
-const styles = {
-  button: {
-    backgrounColor: '#0a468f',
-    color: 'white',
-    border: '2px solid white'
-  },
 
-  container: {
-    display: 'flex',
-    justifyContent: 'center'
-  }
-}
 
  const Counter = (props) => {
+   const styles = {
+     button: {
+       backgroundColor: props.background,
+       color: 'white',
+       border: '2px solid white'
+     },
+
+     container: {
+       display: 'flex',
+       justifyContent: 'center'
+     }
+   }
   return(
     <div style={styles.container}>
       <button type="button" style={styles.button} onClick={props.handleButtonClick}> {props.counter} </button>
@@ -24,11 +25,13 @@ const styles = {
 
 Counter.propTypes = {
   handleButtonClick: React.PropTypes.func.isRequired,
-  counter: React.PropTypes.number
+  counter: React.PropTypes.number,
+  background: React.PropTypes.string
 }
 
 Counter.defaultProps = {
-  counter: 0
+  counter: 0,
+  background: '#000'
 }
 
 export default Counter

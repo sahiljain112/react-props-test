@@ -19,7 +19,8 @@ export default class Test extends React.Component {
   render(){
     const { counter } = this.state
     return(
-      <Button counter = {counter} onClick = {this.handleButtonClick} />
+      <Button counter = {counter} background='#0a468f' handleButtonClick = {this.handleButtonClick} />
+      <Button counter = {counter} background='#000' handleButtonClick = {this.handleButtonClick} />
     )
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { LeftPanel, MainPanel, RightPanel} from '../layout/panels'
+import { LeftPanel, MainPanel, RightPanel} from '../layout/Panels'
 import { getComponentsList } from '../../utils'
 
 class App extends Component {
@@ -25,10 +25,12 @@ class App extends Component {
         displayName: component.name,
         key: index,
         id: index,
-        props: component.propTypes
+        props: component.propTypes,
+        isActive: false
       })
     })
     // gets first element of array
+    this.components[0].isActive = true
     activeComponent = this.components[0]
     console.log('Active component', activeComponent)
     activeComponentProps = activeComponent.props
@@ -43,7 +45,7 @@ class App extends Component {
   }
 
   handleComponentChange(event){
-    console.log()
+    console.log('Component change clicked')
   }
 
   render() {
@@ -53,6 +55,7 @@ class App extends Component {
       <div className="container">
         <LeftPanel components = {components} changeComponent={this.handleComponentChange}/>
         <MainPanel activeComponent = {activeComponent} />
+        <RightPanel />
       </div>
     )
   }

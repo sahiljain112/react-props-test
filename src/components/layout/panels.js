@@ -1,19 +1,23 @@
 import React from 'react'
+import './Panels.css'
 import { PropTypesChecker, renderElement } from '../../utils'
 
  export const LeftPanel = (props) => {
    const { components, changeComponent } = props
    const displayComponents = components.map(component => {
+     const spanClass = component.isActive ? 'hl' : ''
      return (
        <li key={component.id}>
-          <a onClick={changeComponent} data-id={component.id}> {component.displayName} </a>
+          <a onClick={changeComponent} data-id={component.id}> <span className={spanClass}> {component.displayName} </span> </a>
        </li>
      )
    })
    return (
-     <ul>
-       { displayComponents }
-     </ul>
+     <div className="left-panel">
+       <ul>
+         { displayComponents }
+       </ul>
+     </div>
    )
  }
 
@@ -29,5 +33,9 @@ import { PropTypesChecker, renderElement } from '../../utils'
  }
 
  export const RightPanel = (props) => {
-  //
+   return(
+       <div className="right-panel">
+        I am the right panel
+       </div>
+     )
  }
