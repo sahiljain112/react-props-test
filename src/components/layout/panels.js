@@ -7,16 +7,19 @@ import { PropTypesChecker, renderElement } from '../../utils'
    const displayComponents = components.map(component => {
      const spanClass = component.isActive ? 'hl' : ''
      return (
-       <li key={component.id}>
-          <a onClick={changeComponent} data-id={component.id}> <span className={spanClass}> {component.displayName} </span> </a>
+       <li key={component.id} onClick={changeComponent} data-id={component.id}>
+         <span className={spanClass}> {component.displayName} </span>
        </li>
      )
    })
    return (
      <div className="left-panel">
-       <ul>
-         { displayComponents }
-       </ul>
+      <div className="components-header">
+        COMPONENTS
+      </div>
+         <ul>
+           { displayComponents }
+         </ul>
      </div>
    )
  }
@@ -35,7 +38,7 @@ import { PropTypesChecker, renderElement } from '../../utils'
  export const RightPanel = (props) => {
    return(
        <div className="right-panel">
-        I am the right panel
+          <div className="props-header"> PROPS </div>
        </div>
      )
  }

@@ -44,8 +44,28 @@ class App extends Component {
     console.log('Event clicked', event)
   }
 
-  handleComponentChange(event){
+  handleComponentChange(event) {
+    const components = this.components
     console.log('Component change clicked')
+    const { activeComponent, activeComponentProps } = this.state
+    const dataset = event.target.parentElement.dataset
+    const { id: stringID } = dataset
+    const ID = parseInt(stringID, 10)
+
+    const nextComponentIndex = components.findIndex(component => component.id === ID)
+    const nextComponentProps = components[nextComponentIndex].props
+
+    if(activeComponent.id !== components[nextComponentIndex].id){
+
+      const prevComponentIndex = components.findIndex(component => component.id === activeComponent.id)
+      components[prevComponentIndex].isActive = false
+      components[nextComponentIndex].isActive = true
+
+      this.setState({
+        activeComponent: components[nextComponentIndex],
+        activeComponentProps: nextComponentProps
+      })
+    }
   }
 
   render() {
