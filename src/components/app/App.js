@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import { LeftPanel, MainPanel, RightPanel} from '../layout/Panels'
+import LeftPanel from '../panels/LeftPanel'
+import MainPanel from '../panels/MainPanel'
+import RightPanel from '../panels/RightPanel'
 import { getComponentsList } from '../../utils'
 
 class App extends Component {
@@ -8,9 +10,8 @@ class App extends Component {
     super(props)
     this.state = {
       activeComponentKey: 0,
-      activeComponent: '',
-      activeComponentProps: []
-    }
+      activeComponent: ''
+     }
     this.handlePropChange = this.handlePropChange.bind(this)
     this.handleComponentChange = this.handleComponentChange.bind(this)
   }
@@ -26,22 +27,20 @@ class App extends Component {
         displayName: component.name,
         key: index,
         id: index,   // Prevent reference passing errors
-        propConfig: component.propConfig,
-        propLabels: component.propLabels
+        propConfig: [ component.propConfig, component.propLabels, component.defaultProps ]
       })
     })
     // gets first element of array
     activeComponent = this.components[0]
     console.log('Active component', activeComponent)
-    activeComponentProps = activeComponent.propLabels
+    // activeComponentProps = activeComponent.propLabels
     this.setState({
-      activeComponent,
-      activeComponentProps
+      activeComponent
     })
   }
 
-  handlePropChange(event) {
-    console.log('Event clicked', event)
+  handlePropChange(key, eventOrValue) {
+    console.log('Inside parent')
   }
 
   handleComponentChange(event) {
@@ -53,7 +52,7 @@ class App extends Component {
     const ID = parseInt(stringID, 10)
 
     const nextComponent = components.find(component => component.id === ID)
-    const nextComponentProps = nextComponent.propLabels
+    // const nextComponentProps = nextComponent.propLabels
 
     // const nextComponentIndex = components.findIndex(component => component.id === ID)
     // const nextComponentProps = components[nextComponentIndex].props
@@ -67,19 +66,19 @@ class App extends Component {
       this.setState({
         activeComponentKey: nextComponent.key,
         activeComponent: nextComponent,
-        activeComponentProps: nextComponentProps
       })
     }
 
   render() {
-    const { activeComponentKey, activeComponent, activeComponentProps } = this.state
+    const { activeComponentKey, activeComponent } = this.state
     const components = this.components || []
     const { propConfig } = activeComponent
+
     return (
       <div className="container">
         <LeftPanel components = {components} changeComponent={this.handleComponentChange} activeComponentKey={activeComponentKey} />
         <MainPanel activeComponent = {activeComponent} activeComponentProps={this.state.formIdValueMap} />
-        <RightPanel propConfig = {propConfig} activeComponentProps = {activeComponentProps} handlePropChange = {this.handlePropChange} />
+        <RightPanel propConfig = {propConfig} handlePropChange = {this.handlePropChange} />
       </div>
     )
   }

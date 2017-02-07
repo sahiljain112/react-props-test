@@ -20,7 +20,26 @@ const matchPropsToElements = {
   'boolean': 'select',
 }
 
-export const PropTypesMapper = (propType) => {
-  const TYPE_OF_PROP = (propType).toLowerCase()
+export const propTypesMapper = (propType) => {
+  const TYPE_OF_PROP = (propType)
   return matchPropsToElements[TYPE_OF_PROP]
+}
+
+export const valueMapper = (elementType, event) => {
+  switch (elementType) {
+    case 'inputString':
+      return event.target.value
+      break;
+    case 'inputNumber':
+      return event.target.value
+      break;
+    case 'function':
+      return event.target.value
+      break;
+    case 'boolean':
+      return event.target.value
+      break;
+    default:
+
+  }
 }
