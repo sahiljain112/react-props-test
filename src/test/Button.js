@@ -22,16 +22,28 @@ import React from 'react'
   )
 }
 
-
 Counter.propTypes = {
-  handleButtonClick: React.PropTypes.func.isRequired,
+  handleButtonClick: React.PropTypes.func,
   counter: React.PropTypes.number,
   background: React.PropTypes.string
 }
 
 Counter.defaultProps = {
+  handleButtonClick: () => console.log('Button clicked. default props'),
   counter: 0,
   background: '#000'
+}
+
+Counter.propConfig = {
+  handleButtonClick: 'function',
+  counter: 'number',
+  background: 'string'
+}
+
+Counter.propLabels = {
+  handleButtonClick: 'Click Handler',
+  counter: 'Counter Value',
+  background: 'Background Color'
 }
 
 export default Counter

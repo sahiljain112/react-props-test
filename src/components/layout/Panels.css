@@ -1,4 +1,9 @@
+ul {
+  padding: 1rem;
+}
+
 li {
+  cursor: pointer;
   padding: 1rem;
   background: #f2f2f2;
   border-bottom: 1px solid #8c8c8c;
@@ -11,25 +16,26 @@ li:last-child {
 }
 
 .hl {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #000;
   font-family: Helvetica;
   text-shadow: 0.2rem 0.2rem 0.5rem #fff;
 }
 
 .left-panel {
-  flex: 2;
+  width: 400px;
+  min-width: 250px;
 }
 
 .main-panel {
-  flex: 5;
+  width: 700px;
   background: white;
   margin: 2rem;
   height: 100%;
 }
 
 .right-panel {
-  flex: 2;
+  width: 400px;
   justify-content: center;
 }
 
