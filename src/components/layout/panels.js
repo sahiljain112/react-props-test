@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Panels.css'
-import { PropTypesMapper, renderElement } from '../../utils'
+import { PropTypesMapper } from '../../utils'
 
  export const LeftPanel = (props) => {
    const { components, changeComponent, activeComponentKey } = props
@@ -40,12 +40,48 @@ export class RightPanel extends Component {
   constructor(props){
     super(props)
     this.state = {
-      value1: '',
-      value2: '',
+      stateValues: {}
     }
   }
 
+  componentWillMount() {
+
+    this.propsToDisplay = []
+    const { propConfig } = this.props
+    const stateValue = {}
+
+    Object.keys(propConfig).forEach(key => {
+      const elementType = PropTypesMapper(propConfig[key])
+      if(elementType === 'inputNumber')
+          this.propsToDisplay.push(<input type='number' value='Enter number' />)
+      else if(elementType === 'inputString')
+          this.propsToDisplay.push(<input type='text' value='Enter String' />)
+      else
+        return ''
+    })
+  }
+
+  handleStateChange() {
+
+  }
+
   render() {
+    const { activeComponentProps } = this.props
+    const propsToDisplay = this.propsToDisplay.map((prop, index) => {
+      return (
+        <li>
+          {activeComponentProps[index]} : {prop}
+        </li>
+      )
+    })
+    return(
+        <div className="right-panel">
+           <div className="props-header"> PROPS </div>
+           <ul>
+            { propsToDisplay}
+           </ul>
+        </div>
+      )
 
   //  const { activeComponentProps } = this.props
   //  const inputTypes = activeComponentProps.forEach(prop => {
@@ -58,13 +94,6 @@ export class RightPanel extends Component {
   //     return
   //  })
 
-   return(
-       <div className="right-panel">
-          <div className="props-header"> PROPS </div>
-          <ul>
-            Hello
-          </ul>
-       </div>
-     )
+
    }
 }

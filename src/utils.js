@@ -16,11 +16,11 @@ export const getComponentsList = () => {
 const matchPropsToElements = {
   'string' : 'inputString',
   'number' : 'inputNumber',
-  'funtion': 'textarea',
+  'function': 'textarea',
   'boolean': 'select',
 }
 
-export const PropTypesChecker = (propType) => {
-  const TYPE_OF_PROP = (propType)
-  return matchPropsToElements.TYPE_OF_PROP
+export const PropTypesMapper = (propType) => {
+  const TYPE_OF_PROP = (propType).toLowerCase()
+  return matchPropsToElements[TYPE_OF_PROP]
 }

@@ -29,19 +29,19 @@ Counter.propTypes = {
 }
 
 Counter.defaultProps = {
-  handleButtonClick: () => console.log('Button clicked. default props'),
+  handleButtonClick: () => console.log('Button clicked. Defined in default props'),
   counter: 0,
   background: '#000'
 }
 
 Counter.propConfig = {
-  handleButtonClick: 'function',
+  //handleButtonClick: 'function',
   counter: 'number',
   background: 'string'
 }
 
 Counter.propLabels = {
-  handleButtonClick: 'Click Handler',
+  // handleButtonClick: 'Click Handler',
   counter: 'Counter Value',
   background: 'Background Color'
 }
