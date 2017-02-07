@@ -9,21 +9,28 @@ const RightPanel = (props) => {
   const [ propTypeMap , propLabels, propValues ] = propConfig
 
   const handleChange = (key, event) => {
-    
+
     console.log('Hello')
     const elementType = propTypesMapper(propTypeMap[key])
     const value = valueMapper(elementType, event)
-    handlePropChange(value)
+    handlePropChange(key, value)
 
   }
 
   let propsToDisplay = _.map(propTypeMap, (value, key) => {
     const elementType = propTypesMapper(value)
      if(elementType === 'inputNumber') {
-      return(<input type='number' value='0' onChange={_.partial(handleChange, key)} />)
+      return(<input type='number' value={propValues[key]} onChange={_.partial(handleChange, key)} />)
        }
        else if(elementType === 'inputString') {
-        return(<input type='text' value='String' onChange={_.partial(handleChange, key)} />)
+        return(<input type='text' value={propValues[key]} onChange={_.partial(handleChange, key)} />)
+       }
+       else if(elementType === 'boolean') {
+        return( <select value={propValues[key]} onChange={_.partial(handleChange, key)}>
+                  <option value="true">True</option>
+                  <option value="False">False</option>
+                </select>
+            )
        }
        else {
         return(<input type='text' value='Enter value' onChange={_.partial(handleChange, key)} />)

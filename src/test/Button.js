@@ -35,7 +35,7 @@ Counter.defaultProps = {
 }
 
 Counter.propConfig = {
-  //handleButtonClick: 'function',
+  handleButtonClick: 'function',
   counter: 'number',
   background: 'string'
 }

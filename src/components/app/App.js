@@ -4,6 +4,7 @@ import LeftPanel from '../panels/LeftPanel'
 import MainPanel from '../panels/MainPanel'
 import RightPanel from '../panels/RightPanel'
 import { getComponentsList } from '../../utils'
+import _ from 'lodash'
 
 class App extends Component {
   constructor(props){
@@ -27,7 +28,7 @@ class App extends Component {
         displayName: component.name,
         key: index,
         id: index,   // Prevent reference passing errors
-        propConfig: [ component.propConfig, component.propLabels, component.defaultProps ]
+        propConfig: [component.propConfig, component.propLabels, component.defaultProps].map(object => Object.assign({}, object)),
       })
     })
     // gets first element of array
@@ -39,8 +40,14 @@ class App extends Component {
     })
   }
 
-  handlePropChange(key, eventOrValue) {
-    console.log('Inside parent')
+  handlePropChange(key, value) {
+
+    // console.log('Inside parent')
+    // const { activeComponent } = this.state
+    // let newPropConfig = [...activeComponent.propConfig]
+    // newPropConfig[2][key] = value
+    // const newComponent = Object.assign({}, activeComponent, { propConfig: newPropConfig})
+    // this.setState({ activeComponent: newComponent})
   }
 
   handleComponentChange(event) {
@@ -52,16 +59,6 @@ class App extends Component {
     const ID = parseInt(stringID, 10)
 
     const nextComponent = components.find(component => component.id === ID)
-    // const nextComponentProps = nextComponent.propLabels
-
-    // const nextComponentIndex = components.findIndex(component => component.id === ID)
-    // const nextComponentProps = components[nextComponentIndex].props
-    //
-    // if(activeComponent.id !== components[nextComponentIndex].id){
-    //
-    //   const prevComponentIndex = components.findIndex(component => component.id === activeComponent.id)
-    //   components[prevComponentIndex].isActive = false
-    //   components[nextComponentIndex].isActive = true
 
       this.setState({
         activeComponentKey: nextComponent.key,
@@ -77,7 +74,7 @@ class App extends Component {
     return (
       <div className="container">
         <LeftPanel components = {components} changeComponent={this.handleComponentChange} activeComponentKey={activeComponentKey} />
-        <MainPanel activeComponent = {activeComponent} activeComponentProps={this.state.formIdValueMap} />
+        <MainPanel activeComponent = {activeComponent} propConfig={propConfig} />
         <RightPanel propConfig = {propConfig} handlePropChange = {this.handlePropChange} />
       </div>
     )
