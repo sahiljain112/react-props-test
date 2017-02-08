@@ -7,7 +7,7 @@ import { getComponentsList } from '../../utils'
 import _ from 'lodash'
 
 class App extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       activeComponentKey: 0,
@@ -27,8 +27,7 @@ class App extends Component {
         component,
         displayName: component.name,
         key: index,
-        id: index,   // Prevent reference passing errors
-        // propConfig: [component.propConfig, component.propLabels, component.defaultProps].map(object => Object.assign({}, object)),
+        id: index,
         propConfig: _.map(component.propConfig, (prop) => {
           return ({
             name: prop.name,
@@ -55,18 +54,11 @@ class App extends Component {
     this.setState({
       propConfig: {...this.state.propConfig, [key]: config}
     })
-    // console.log('Inside parent')
-    // const { activeComponent } = this.state
-    // let newPropConfig = [...activeComponent.propConfig]
-    // newPropConfig[2][key] = value
-    // const newComponent = Object.assign({}, activeComponent, { propConfig: newPropConfig})
-    // this.setState({ activeComponent: newComponent})
   }
 
   handleComponentChange(event) {
     const components = this.components
     console.log('Component change clicked')
-    // const { activeComponent, activeComponentProps } = this.state
     const dataset = event.target.nodeName === 'SPAN' ? event.target.parentElement.dataset : event.target.dataset
     const { id: stringID } = dataset
     const ID = parseInt(stringID, 10)
@@ -83,13 +75,19 @@ class App extends Component {
   render() {
     const { activeComponentKey, activeComponent, propConfig } = this.state
     const components = this.components || []
-    // const { propConfig } = activeComponent
 
     return (
-      <div className="container">
-        <LeftPanel components = {components} changeComponent={this.handleComponentChange} activeComponentKey={activeComponentKey} />
-        <MainPanel activeComponent = {activeComponent} propConfig={propConfig} />
-        <RightPanel propConfig = {propConfig} handlePropChange = {this.handlePropChange} />
+      <div className='app'>
+        <div className="header">
+          <div className="heading">
+            React Props Test
+          </div>
+        </div>
+        <div className="container">
+          <LeftPanel components = {components} changeComponent={this.handleComponentChange} activeComponentKey={activeComponentKey} />
+          <MainPanel activeComponent = {activeComponent} propConfig={propConfig} />
+          <RightPanel propConfig = {propConfig} handlePropChange = {this.handlePropChange} />
+        </div>
       </div>
     )
   }

@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
  const Counter = (props) => {
    const styles = {
      button: {
