@@ -11,7 +11,8 @@ class App extends Component {
     super(props)
     this.state = {
       activeComponentKey: 0,
-      activeComponent: ''
+      activeComponent: '',
+      propConfig: ''
      }
     this.handlePropChange = this.handlePropChange.bind(this)
     this.handleComponentChange = this.handleComponentChange.bind(this)
@@ -20,7 +21,6 @@ class App extends Component {
   componentWillMount() {
     const componentsList = getComponentsList() || []
     console.log(componentsList)
-    let  activeComponent , activeComponentProps;
     this.components = []
     componentsList.forEach((component, index) => {
       this.components.push({
@@ -28,20 +28,33 @@ class App extends Component {
         displayName: component.name,
         key: index,
         id: index,   // Prevent reference passing errors
-        propConfig: [component.propConfig, component.propLabels, component.defaultProps].map(object => Object.assign({}, object)),
+        // propConfig: [component.propConfig, component.propLabels, component.defaultProps].map(object => Object.assign({}, object)),
+        propConfig: _.map(component.propConfig, (prop) => {
+          return ({
+            name: prop.name,
+            type: prop.type,
+            label: prop.label,
+            value: prop.value
+          })
+        })
       })
     })
     // gets first element of array
-    activeComponent = this.components[0]
+    const activeComponent = {...this.components[0]}
+    const propConfig = {...activeComponent.propConfig}
     console.log('Active component', activeComponent)
     // activeComponentProps = activeComponent.propLabels
     this.setState({
-      activeComponent
+      activeComponent,
+      propConfig
     })
   }
 
-  handlePropChange(key, value) {
+  handlePropChange(key, config) {
 
+    this.setState({
+      propConfig: {...this.state.propConfig, [key]: config}
+    })
     // console.log('Inside parent')
     // const { activeComponent } = this.state
     // let newPropConfig = [...activeComponent.propConfig]
@@ -63,13 +76,14 @@ class App extends Component {
       this.setState({
         activeComponentKey: nextComponent.key,
         activeComponent: nextComponent,
+        propConfig: {...nextComponent.propConfig}
       })
     }
 
   render() {
-    const { activeComponentKey, activeComponent } = this.state
+    const { activeComponentKey, activeComponent, propConfig } = this.state
     const components = this.components || []
-    const { propConfig } = activeComponent
+    // const { propConfig } = activeComponent
 
     return (
       <div className="container">
@@ -80,5 +94,6 @@ class App extends Component {
     )
   }
 }
+
 
 export default App;

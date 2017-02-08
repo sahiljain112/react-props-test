@@ -6,34 +6,35 @@ import _ from 'lodash'
 const RightPanel = (props) => {
 
   const { propConfig, handlePropChange } = props
-  const [ propTypeMap , propLabels, propValues ] = propConfig
 
   const handleChange = (key, event) => {
 
     console.log('Hello')
-    const elementType = propTypesMapper(propTypeMap[key])
+    const elementType = propTypesMapper(propConfig[key].type)
     const value = valueMapper(elementType, event)
-    handlePropChange(key, value)
+    key = parseInt(key, 10)
+    const config = {...propConfig[key], value}
+    handlePropChange(key, config)
 
   }
 
-  let propsToDisplay = _.map(propTypeMap, (value, key) => {
-    const elementType = propTypesMapper(value)
-     if(elementType === 'inputNumber') {
-      return(<input type='number' value={propValues[key]} onChange={_.partial(handleChange, key)} />)
+  let propsToDisplay = _.map(propConfig, (prop, index) => {
+    const elementType = propTypesMapper(prop.type)
+       if(elementType === 'inputNumber') {
+        return(<input type='number' value={prop.value} onChange={_.partial(handleChange, index)} />)
        }
        else if(elementType === 'inputString') {
-        return(<input type='text' value={propValues[key]} onChange={_.partial(handleChange, key)} />)
+        return(<input type='text' value={prop.value} onChange={_.partial(handleChange, index)} />)
        }
        else if(elementType === 'boolean') {
-        return( <select value={propValues[key]} onChange={_.partial(handleChange, key)}>
+        return( <select value={prop.value} onChange={_.partial(handleChange, index)}>
                   <option value="true">True</option>
                   <option value="False">False</option>
                 </select>
             )
        }
        else {
-        return(<input type='text' value='Enter value' onChange={_.partial(handleChange, key)} />)
+        return(<input type='text' value='Enter value' onChange={_.partial(handleChange, index)} />)
        }
    })
 

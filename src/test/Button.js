@@ -28,22 +28,37 @@ Counter.propTypes = {
   background: React.PropTypes.string
 }
 
-Counter.defaultProps = {
-  handleButtonClick: () => console.log('Button clicked. Defined in default props'),
-  counter: 0,
-  background: '#000'
-}
-
 Counter.propConfig = {
-  handleButtonClick: 'function',
-  counter: 'number',
-  background: 'string'
-}
+  prop1: {
+    name: 'counter',
+    type: 'number',
+    label: 'Counter',
+    value: 0
+  },
 
-Counter.propLabels = {
-  // handleButtonClick: 'Click Handler',
-  counter: 'Counter Value',
-  background: 'Background Color'
+  prop2: {
+    name: 'background',
+    type: 'string',
+    label: 'Background color',
+    value: '#000'
+  }
 }
+// Counter.defaultProps = {
+//   handleButtonClick: () => console.log('Button clicked. Defined in default props'),
+//   counter: 0,
+//   background: '#000'
+// }
+//
+// Counter.propConfig = {
+//   handleButtonClick: 'function',
+//   counter: 'number',
+//   background: 'string'
+// }
+//
+// Counter.propLabels = {
+//   // handleButtonClick: 'Click Handler',
+//   counter: 'Counter Value',
+//   background: 'Background Color'
+// }
 
 export default Counter
